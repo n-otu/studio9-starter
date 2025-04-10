@@ -1,34 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Designftw Chatroom</title>
+        <script type="importmap">
+            {
+                "imports": {
+                    "vue": "https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.esm-browser.js",
+                    "@graffiti-garden/implementation-local": "https://cdn.jsdelivr.net/npm/@graffiti-garden/implementation-local@0.6.4/dist/browser/index.js",
+                    "@graffiti-garden/implementation-remote": "https://cdn.jsdelivr.net/npm/@graffiti-garden/implementation-remote@0.6.2/dist/browser/index.js",
+                    "@graffiti-garden/wrapper-vue": "https://cdn.jsdelivr.net/npm/@graffiti-garden/wrapper-vue@0.7.2/dist/browser/plugin.mjs"
+                }
+            }
+        </script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="app">
+            <h1>DesignFTW Chatroom</h1>
+            <button v-if="!$graffitiSession.value" @click="$graffiti.login()">
+                Log In
+            </button>
+            <template v-else>
+                <button @click="$graffiti.logout($graffitiSession.value)">
+                    Log Out
+                </button>
+                <form @submit.prevent="sendMessage($graffitiSession.value)">
+                    <input
+                        type="text"
+                        v-model="myMessage"
+                        placeholder="Message"
+                    />
+                    <input type="submit" value="Send" />
+                </form>
+            </template>
 
-<meta charset="UTF-8">
-<title>Yet Another To-Do List</title>
-<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">✅</text></svg>'>
-<link rel="stylesheet" href="style.css">
-<script type="module">
-import * as app from './index.js';
-globalThis.app = app;
-</script>
+            <h2>Messages</h2>
 
-</head>
-<body>
-	<div id="app">
-		<div class="backend-controls">
-			<button id="save_button">Save</button>
-		</div>
-		<h1><span id="done_count">0</span> done of <span id="total_count">1</span> total</h1>
-		<ul id="tasks_list"></ul>
-		<template id="task_template">
-			<li>
-				<input type="checkbox" aria-label="Done?" class="done">
-				<input type="text" aria-label="Task" class="title">
-				<button class="delete">x</button>
-			</li>
-		</template>
+            <button @click="getMessages()">Refresh messages</button>
+            <ul>
+                <li v-for="object of messageObjects">
+                    {{ object.value.content }}
+                </li>
+            </ul>
+        </div>
 
-		<button onclick="app.addItem()">Add item</button>
-		<button onclick="app.clearCompleted()">Clear completed</button>
-	</div>
-</body>
+        <script src="index.js" type="module"></script>
+    </body>
 </html>
