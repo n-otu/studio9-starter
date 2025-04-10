@@ -25,7 +25,7 @@ createApp({
       });
     },
 
-    async getMessages() {
+    getMessages() {
       const messageObjectsIterator = this.getMessageObjectsIterator();
 
       const newMessageObjects = [];
