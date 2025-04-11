@@ -23,7 +23,10 @@ createApp({
         },
         channels,
       });
+      //  clear automatically
       this.myMessage = "";
+      // refresh automatically
+      this.getMessages();
     },
 
     getMessages() {
