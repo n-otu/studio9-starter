@@ -30,7 +30,15 @@ createApp({
 
       const newMessageObjects = [];
       for (const { object } of messageObjectsIterator) {
-        newMessageObjects.push(object);
+        console.log("this is the message abt to be pushed", object.value.content);
+        if (object.value.content == "") {
+          console.log("bad message, skipping")
+        }
+        else {
+          console.log("good message (not empty)");
+          newMessageObjects.push(object);
+        }
+
       }
 
       // Sort here
@@ -50,3 +58,7 @@ createApp({
     // graffiti: new GraffitiRemote(),
   })
   .mount("#app");
+
+
+  // changes made:
+  
