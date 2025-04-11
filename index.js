@@ -23,6 +23,7 @@ createApp({
         },
         channels,
       });
+      this.myMessage = "";
     },
 
     getMessages() {
@@ -58,7 +59,3 @@ createApp({
     // graffiti: new GraffitiRemote(),
   })
   .mount("#app");
-
-
-  // changes made:
-  
